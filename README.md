@@ -26,29 +26,7 @@ Brief description or introduction of your project.
 
 ## Project Structure
 
-project-root/
-│
-├── client(frontend)/
-│ ├── src/
-│ │ ├── components/
-| | |   ├──dashboard
-| | |   ├──loginAndSignup
-│ │ ├── index.js
-│ │ ├── App.js
-│ │ └── index.js
-| ├──.env
-│ └── public/
-│ └── index.html
-│
-└── backend/
-├── server/
-│ ├── controllers/
-│ ├── models/
-│ ├── routes/
-│ ├── config/
-│ ├── server.js
-| ├── .env
-│ └── middlewares
+![Alt text](image.png)
 
 ## Technologies Used
 
