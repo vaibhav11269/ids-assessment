@@ -1,7 +1,11 @@
 const moment = require("moment");
-
+const bcrypt = require("bcryptjs");
+const path = require("path");
+const fs = require("fs");
+const csv = require("fast-csv");
 const { User } = require('../models/user');
 const UserSession = require("../models/userSession");
+
 
 
 module.exports = {
@@ -136,6 +140,50 @@ module.exports = {
             const users = await User.find(filter).limit(15);
 
             return res.status(200).json({ users });
+        } catch (error) {
+            console.error('Error fetching top users:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    uploadUsers: async (req, res) => {
+        try {
+            let currentPath = path.dirname(__dirname) + "/uploads/" + req.file.filename;
+            let stream = fs.createReadStream(currentPath);
+            let csvData = [];
+            let hashedPassword = await bcrypt.hash("password", 7);
+            let fileStream = csv.parse()
+                .on('error', error => console.log(error))
+                .on('data', row => {
+                    if (row.length > 0) csvData.push(row);
+                })
+                .on('end', async () => {
+                    csvData.shift();
+                    let results = [];
+                    for (const row of csvData) {
+                        const newUser = new User({
+                            name: row[0],
+                            email: row[1],
+                            password: hashedPassword,
+                            is_admin: false,
+                            gender: row[2],
+                            country: row[3],
+                            device: row[4]
+                        });
+                        await newUser.save();
+                        results.push({
+                            userId: newUser._id,
+                            status: true,
+                            message: "Record Created"
+                        });
+                    }
+                    fs.unlinkSync(currentPath);
+                    return res.status(201).json({
+                        success: true,
+                        message: "All Records Inserted",
+                        results
+                    });
+                });
+            stream.pipe(fileStream);
         } catch (error) {
             console.error('Error fetching top users:', error);
             return res.status(500).json({ error: 'Internal Server Error' });

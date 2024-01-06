@@ -7,6 +7,7 @@ import ActiveUsers from './ActiveUsers.js';
 import TopUsers from './TopUsers.js';
 import UserActivity from './UserActivity.js';
 import AllUsers from './AllUesrs.js';
+import UploadCsv from './UploadFile.js';
 
 const Dashboard = () => {
     const { user } = useContext(UserContext);
@@ -34,7 +35,9 @@ const Dashboard = () => {
                                         <UserActivity />
                                         : section === "allUsers" ?
                                             <AllUsers />
-                                            : <></>
+                                            : section === "dataUpload" ?
+                                                <UploadCsv />
+                                                : <></>
                             }
                         </main>
                     </Col>

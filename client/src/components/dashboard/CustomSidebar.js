@@ -16,6 +16,7 @@ const CustomSidebar = ({ section, setSection }) => {
                     <div name="activeUsers" className={`text-lg font-semibold text-center p-2 hover:bg-gray-300 rounded cursor-pointer ${section === "activeUsers" ? "bg-gray-300" : ""}`} onClick={() => handleSectionClick("activeUsers")}>Active Users</div>
                     <div name="topUsers" className={`text-lg font-semibold text-center p-2 hover:bg-gray-300 rounded cursor-pointer ${section === "topUsers" ? "bg-gray-300" : ""}`} onClick={() => handleSectionClick("topUsers")}>Top Users</div>
                     <div name="allUsers" className={`text-lg font-semibold text-center p-2 hover:bg-gray-300 rounded cursor-pointer ${section === "allUsers" ? "bg-gray-300" : ""}`} onClick={() => handleSectionClick("allUsers")}>All Users</div>
+                    <div name="dataUpload" className={`text-lg font-semibold text-center p-2 hover:bg-gray-300 rounded cursor-pointer ${section === "dataUpload" ? "bg-gray-300" : ""}`} onClick={() => handleSectionClick("dataUpload")}>Upload Data</div>
                 </div>
                 : <div className='flex flex-col gap-4'>
                     <div name="userActivity" className={`text-lg font-semibold text-center py-2 hover:bg-gray-300 rounded cursor-pointer ${section === "userActivity" ? "bg-gray-300" : ""}`} onClick={() => handleSectionClick("userActivity")}>Your Activity</div>
