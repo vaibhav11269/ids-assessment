@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Brief description or introduction of your project.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Frontend](#frontend)
+- [Backend](#backend)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Signup and Register
+- Admin Dahboard
+  - Active Users Count
+  - Top Users
+  - All Users
+  - Upload Data
+- Activity Dashboard for normal user
+  - Dispalying their activity on the app
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+project-root/
+│
+├── client(frontend)/
+│ ├── src/
+│ │ ├── components/
+| | |   ├──dashboard
+| | |   ├──loginAndSignup
+│ │ ├── index.js
+│ │ ├── App.js
+│ │ └── index.js
+| ├──.env
+│ └── public/
+│ └── index.html
+│
+└── backend/
+├── server/
+│ ├── controllers/
+│ ├── models/
+│ ├── routes/
+│ ├── config/
+│ ├── server.js
+| ├── .env
+│ └── middlewares
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+List the technologies, frameworks, and libraries used in your project.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Frontend:
+  - React
+  - Bootstrap and Raect Bootstrap
+  - Tailwind
+  - axios
+  - formik and yup
+  - React Router
+  - Papaparser
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Backend:
+  - Node.js
+  - Express
+  - MongoDB
+  - Json Web Token,Bcrypt,Joi
+  - Fast Csv
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  
+## Getting Started
 
-### `npm run eject`
+### Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node should be preinstalled on the system.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   git clone https://github.com/vaibhav11269/ids-assessment.git
 
-## Learn More
+2. Install Dependencies
+    cd ./server
+    npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    cd ./client
+    npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. I've added the environment file here only.
+4. For Running the Project
+    cd ./server
+    npm start
 
-### Code Splitting
+    cd ./client
+    npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Note for uploading users data to server please use .csv file format
+![Upload Data](image-3.png)
