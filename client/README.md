@@ -10,10 +10,8 @@ Brief description or introduction of your project.
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Configuration](#configuration)
 - [Running the Application](#running-the-application)
-- [Frontend](#frontend)
-- [Backend](#backend)
+
 
 ## Features
 
@@ -94,7 +92,8 @@ List the technologies, frameworks, and libraries used in your project.
     npm install
 
 3. I've added the environment file here only.
-4. For Running the Project
+
+### Running the Application
     cd ./server
     npm start
 
