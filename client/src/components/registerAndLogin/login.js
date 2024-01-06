@@ -1,12 +1,16 @@
 import backgroundImg from '../../images/bg_image.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { config } from '../../config/config';
 import { enqueueSnackbar } from 'notistack';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
 
 const LoginPage = () => {
+    const user = useContext(UserContext);
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -26,8 +30,11 @@ const LoginPage = () => {
                 .then(response => {
                     enqueueSnackbar(response?.data?.message, { variant: "success" });
                     localStorage.setItem("token", response.data.token);
-                    localStorage.setItem("user", response.data.user);
-                    // navigate("/")
+                    let curUser = response.data.user;
+                    curUser["token"] = response.data.token;
+                    user.updateLoggedInUser(curUser);
+                    localStorage.setItem("user", JSON.stringify(curUser));
+                    navigate("/dashboard")
                 })
                 .catch(error => {
                     enqueueSnackbar(error?.response?.data?.error, { variant: "error" })

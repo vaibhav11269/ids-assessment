@@ -28,6 +28,20 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'other'],
+    },
+    country: {
+        type: String,
+        minlength: 2,
+        maxlength: 50,
+    },
+    device: {
+        type: String,
+        minlength: 2,
+        maxlength: 50,
+    },
 })
 
 const User = mongoose.model('User', userSchema);
@@ -37,6 +51,9 @@ const registrationValidationSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
     is_admin: Joi.boolean(),
+    gender: Joi.string().valid('male', 'female', 'other'),
+    country: Joi.string().min(2).max(50),
+    device: Joi.string().min(2).max(50),
 });
 
 const loginValidationSchema = Joi.object({
