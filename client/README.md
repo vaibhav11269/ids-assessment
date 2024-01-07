@@ -108,4 +108,6 @@ Normal User - user.test@gmail.com
 Password - Password1234@
 
 **Note for uploading users data to server please use .csv file format
-![Upload Data](image-3.png)
+The first row is for the headings. 
+![file](image.png)
+![Uploaded Data](image-3.png)
