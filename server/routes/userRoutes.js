@@ -10,5 +10,6 @@ router.get("/users-activity", validateAuthToken, userController.getUserActivity)
 router.get("/all", validateAuthToken, userController.fetchAllUsers);
 router.post("/filterUsers", validateAuthToken, userController.filterUsers);
 router.post("/uploadData", validateAuthToken, upload.single("file"), userController.uploadUsers);
+router.post("/filter-top-users", validateAuthToken, userController.filterTopUsers);
 
 module.exports = router;

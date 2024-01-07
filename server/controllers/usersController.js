@@ -188,5 +188,49 @@ module.exports = {
             console.error('Error fetching top users:', error);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
+    },
+    filterTopUsers: async (req, res) => {
+        try {
+            const { gender, country, device } = req.body;
+            const filter = {};
+            if (gender) filter.gender = gender;
+            if (country) filter.country = country;
+            if (device) filter.device = device;
+            const topUsers = await User.aggregate([
+                {
+                    $match: filter,
+                },
+                {
+                    $lookup: {
+                        from: 'usersessions',
+                        localField: '_id',
+                        foreignField: 'userId',
+                        as: 'sessions',
+                    },
+                },
+                {
+                    $group: {
+                        _id: '$_id',
+                        totalUsageTime: { $sum: { $ifNull: ['$sessions.usageTime', 0] } },
+                        userName: { $first: '$name' },
+                        email: { $first: '$email' },
+                    },
+                },
+                {
+                    $sort: { totalUsageTime: -1 },
+                },
+                {
+                    $limit: 15,
+                },
+            ]);
+
+            return res.status(200).json({
+                success: true,
+                topUsers,
+            });
+        } catch (error) {
+            console.error('Error fetching top users:', error);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
     }
 }

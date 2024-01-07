@@ -9,6 +9,7 @@ import { enqueueSnackbar } from 'notistack';
 const AllUsers = () => {
     const { user } = useContext(UserContext);
     const [users, setUsers] = useState([]);
+    const [originalUsers, setOriginlaUsers] = useState([]);
     const [filters, setFilters] = useState({
         gender: '',
         country: '',
@@ -29,13 +30,18 @@ const AllUsers = () => {
         axios.get(config.apiEndpoint + "users/all", { headers: headers })
             .then(response => {
                 setUsers(response.data.users);
+                setOriginlaUsers(response.data.users);
             })
             .catch(error => {
                 console.error('Error fetching active users data:', error);
             })
     };
     const applyFilters = (flag) => {
-        if (!filters.gender && !filters.country && !filters.device && flag) {
+        if (!flag) {
+            setUsers(originalUsers);
+            return setIsPopoverOpen(false);
+        }
+        if (!filters.gender && !filters.country && !filters.device) {
             enqueueSnackbar("Choose atleast one parameter", { variant: "error" });
             return;
         }
