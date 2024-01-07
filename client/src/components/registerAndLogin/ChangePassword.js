@@ -1,31 +1,35 @@
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import backgroundImg from '../../images/bg_image.jpg';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../config/config';
 import { enqueueSnackbar } from 'notistack';
 
-const SignupPage = () => {
+const ChangePassword = () => {
     const navigate = useNavigate();
+
     const formik = useFormik({
         initialValues: {
-            name: '',
             email: '',
             password: '',
+            confirmPassword: '',
         },
         validationSchema: Yup.object({
-            name: Yup.string().min(3, 'Name should be atleast 3 characters').required('Name is required'),
-            email: Yup.string().email('Invalid email address').required('Email is required'),
-            password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+            email: Yup.string().email('Invalid email').required('Required'),
+            password: Yup.string().required('Required'),
+            confirmPassword: Yup.string()
+                .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                .required('Required'),
         }),
         onSubmit: (values) => {
-            console.log('Signup submitted:', values);
+            console.log('Form submitted with values:', values);
             let headers = {
                 "Content-Type": "application/json",
                 "applicationType": "web"
             }
-            axios.post(config.apiEndpoint + 'auth/signup', values, { headers: headers })
+            axios.post(config.apiEndpoint + 'auth/reset-password', values, { headers: headers })
                 .then(response => {
                     enqueueSnackbar(response?.data?.message, { variant: "success" });
                     navigate("/")
@@ -42,22 +46,8 @@ const SignupPage = () => {
             style={{ backgroundImage: `url(${backgroundImg})` }}
         >
             <div className="bg-white p-8 shadow-md rounded-md w-96">
-                <h2 className="text-3xl font-semibold mb-6 text-center">Sign Up</h2>
+                <h2 className="text-3xl font-semibold mb-6 text-center">Change Password</h2>
                 <form onSubmit={formik.handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                            Name:
-                        </label>
-                        <input
-                            className={`border ${formik.errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500`}
-                            type="text"
-                            id="name"
-                            {...formik.getFieldProps('name')}
-                        />
-                        {formik.touched.name && formik.errors.name && (
-                            <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
-                        )}
-                    </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                             Email:
@@ -74,7 +64,7 @@ const SignupPage = () => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                            Password:
+                            New Password:
                         </label>
                         <input
                             className={`border ${formik.errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500`}
@@ -86,16 +76,30 @@ const SignupPage = () => {
                             <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
                         )}
                     </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword">
+                            Confirm Password:
+                        </label>
+                        <input
+                            className={`border ${formik.errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500`}
+                            type="password"
+                            id="confirmPassword"
+                            {...formik.getFieldProps('confirmPassword')}
+                        />
+                        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                            <p className="text-red-500 text-sm mt-1">{formik.errors.confirmPassword}</p>
+                        )}
+                    </div>
                     <button
-                        className="bg-green-500 text-white px-4 py-2 rounded-md w-full hover:bg-green-600 focus:outline-none"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md w-full hover:bg-blue-600 focus:outline-none"
                         type="submit"
                     >
-                        Sign Up
+                        Change Password
                     </button>
                 </form>
                 <div className="mt-4 text-center">
                     <Link to="/" className="text-green-500 hover:underline">
-                        Already have an account? Log in here.
+                        Back to Login
                     </Link>
                 </div>
             </div>
@@ -103,4 +107,4 @@ const SignupPage = () => {
     );
 };
 
-export default SignupPage;
+export default ChangePassword;

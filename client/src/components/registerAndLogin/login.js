@@ -90,6 +90,9 @@ const LoginPage = () => {
                         Don't have an account? Sign up here.
                     </Link>
                 </div>
+                <div className="mt-4 text-center">
+                    <Link to="/reset-password" className="text-green-500 hover:underline">Forgot Password? Reset Password</Link>
+                </div>
             </div>
         </div>
     );
