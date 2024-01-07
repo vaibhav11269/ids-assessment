@@ -79,4 +79,6 @@ List the technologies, frameworks, and libraries used in your project.
     npm start
 
 **Note for uploading users data to server please use .csv file format
+The first row is for the headings. 
+![File Format](image-1.png)
 ![Upload Data](image-3.png)
